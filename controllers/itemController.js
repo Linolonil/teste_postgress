@@ -2,42 +2,40 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const criarItem = async (req, res) => {
+const criarItem = async (userId, req, res) => {
   try {
-    const itens = req.body; // Receba um array de itens no corpo da solicitação
+    const item = req.body; // Receba o item no corpo da solicitação
 
-    const novosItens = await Promise.all(
-      itens.map(async (item) => {
-        // Itere por cada item no array e crie-o no banco de dados
-        const novoItem = await prisma.item.create({
-          data: {
-            name: item.name,
-            description: item.description,
-            price: item.price,
-            categoryId: item.categoryId,
-            isVisible: true,
-          },
-        });
+    // Crie o item no banco de dados associado ao usuário
+    const novoItem = await prisma.item.create({
+      data: {
+        userId: userId, // Associe o item ao usuário pelo ID
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        categoryId: item.categoryId,
+        isVisible: true,
+      },
+    });
 
-        return novoItem;
-      })
-    );
-
-    res.json(novosItens);
+    res.json(novoItem);
   } catch (error) {
-    console.error("Erro ao criar itens:", error);
-    res.status(500).json({ error: "Erro ao criar itens" });
+    console.error("Erro ao criar o item:", error);
+    res.status(500).json({ error: "Erro ao criar o item" });
   }
 };
 
-
-const consultarItens = async (req, res) => {
+const consultarItens = async (userId, req, res) => {
   try {
-    const itens = await prisma.item.findMany();
+    const itens = await prisma.item.findMany({
+      where: {
+        userId: userId, // Filtrar os itens pelo ID do usuário
+      },
+    });
     res.json(itens);
   } catch (error) {
-    console.error("Erro ao consultar itens:", error);
-    res.status(500).json({ error: "Erro ao consultar itens" });
+    console.error("Erro ao consultar itens do usuário:", error);
+    res.status(500).json({ error: "Erro ao consultar itens do usuário" });
   }
 };
 

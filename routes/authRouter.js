@@ -45,7 +45,6 @@ router.post("/login", async (req, res) => {
       where: { username },
     });
 
-
     if (!user) {
       return res.status(401).json({ error: "Credenciais inválidas" });
     }

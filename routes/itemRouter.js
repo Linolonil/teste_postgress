@@ -46,7 +46,7 @@ router.get("/consultar-itens", async (req, res) => {
 //   }
 // });
 
-
+router.put("/editar/:itemId", itemController.editarItem);
 router.put("/definir-visibilidade/:itemId", itemController.definirVisibilidade);
 router.delete("/excluir-item/:itemId", itemController.excluirItem);
 

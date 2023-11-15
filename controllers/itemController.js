@@ -122,6 +122,30 @@ const definirVisibilidade = async (req, res) => {
   }
 };
 
+const editarItem = async (req, res) => {
+  const itemId = parseInt(req.params.itemId, 10); // Converte o ID de String para Int
+  const { name, description, price } = req.body;
+
+  try {
+    // Atualiza os dados do item com base no ID
+    const itemAtualizado = await prisma.item.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        name: name,
+        description: description,
+        price: price,
+      },
+    });
+
+    res.json(itemAtualizado);
+  } catch (error) {
+    console.error("Erro ao editar item:", error);
+    res.status(500).json({ error: "Erro interno do servidor" });
+  }
+};
+
 module.exports = {
   criarItem,
   consultarItens,
@@ -129,4 +153,5 @@ module.exports = {
   consultarCategoria,
   excluirItem,
   definirVisibilidade,
+  editarItem,
 };

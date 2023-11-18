@@ -7,7 +7,7 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "pm2 start ecosystem.config.js --env production",
+    "start": " npx pm2 start ecosystem.config.js --env production",
     "dev": "nodemon ./src/app.js"
   },
   "author": "Lino Jorge Bittencourt da Silva",

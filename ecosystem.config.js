@@ -17,5 +17,5 @@ module.exports = {
         NODE_ENV: "development",
       },
     },
-  ],
+  ],q
 };

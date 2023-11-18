@@ -7,7 +7,7 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "npx prisma migrate up --experimental && pm2 start app.js",
+    "start": "pm2 start ecosystem.config.js --env production",
     "dev": "nodemon ./src/app.js"
   },
   "author": "Lino Jorge Bittencourt da Silva",

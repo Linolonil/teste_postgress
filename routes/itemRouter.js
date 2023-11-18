@@ -2,6 +2,7 @@
 const express = require("express");
 const itemController = require("../controllers/itemController");
 const { criarItem, consultarItens } = require("../controllers/itemController");
+
 const { verifyToken } = require("../controllers/authController");
 
 const router = express.Router();
@@ -27,24 +28,6 @@ router.get("/consultar-itens", async (req, res) => {
     consultarItens(userId, req, res);
   }
 });
-// router.get("/menu-itens", async (req, res) => {
-//   try {
-//     // Consulte o banco de dados para obter o ID do último gerente que fez login
-//     const ultimoGerenteId = /* Obtenha o ID do último gerente de alguma forma */;
-
-//     // Use o ID do último gerente para buscar os itens do menu associados a esse gerente
-//     const itensDoUltimoGerente = await prisma.item.findMany({
-//       where: {
-//         userId: ultimoGerenteId,
-//       },
-//     });
-
-//     res.json(itensDoUltimoGerente);
-//   } catch (error) {
-//     console.error("Erro ao buscar itens do último gerente logado:", error);
-//     res.status(500).json({ error: "Erro ao buscar itens do último gerente logado" });
-//   }
-// });
 
 router.put("/editar/:itemId", itemController.editarItem);
 router.put("/definir-visibilidade/:itemId", itemController.definirVisibilidade);

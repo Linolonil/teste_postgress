@@ -4,15 +4,18 @@ const cors = require("cors");
 const { verifyToken } = require("../controllers/authController");
 const { verificaUsername } = require("../controllers/authController");
 const { PrismaClient } = require("@prisma/client");
+
 const prisma = new PrismaClient();
+
+const PORT = process.env.PORT || 3031;
 
 require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
 const itemRouter = require("../routes/itemRouter"); // Importe o roteador
-const cartRouter = require("../routes/cartRouter"); // Importe o roteador
 const authRouter = require("../routes/authRouter"); // Importe o roteador
+const vendaRouter = require("../routes/vendaRouter"); // Importe o roteador
 //
 let currentUserId = null;
 const users = {};
@@ -81,9 +84,10 @@ app.get("/menu", async (req, res) => {
 
 // Use o roteador para definir as rotas
 app.use("/itens", itemRouter);
-app.use("/cart", cartRouter);
 app.use("/auth", authRouter);
+app.use("/venda", vendaRouter);
+
 // Inicie o servidor
-app.listen(3031, () => {
-  console.log(`Servidor Express em execução na porta 3031 `);
+app.listen(PORT, () => {
+  console.log(`Servidor Express em execução na porta ${PORT}`);
 });

@@ -7,23 +7,24 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "npx prisma migrate up --experimental && pm2 start app.js",
+    "dev": "nodemon ./src/app.js"
   },
   "author": "Lino Jorge Bittencourt da Silva",
   "license": "ISC",
   "devDependencies": {
     "@prisma/migrate": "^5.5.2",
-    "nodemon": "^3.0.1",
-    "prisma": "^5.5.2"
+    "nodemon": "^3.0.1"
   },
   "dependencies": {
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.6.0",
     "axios": "^1.6.1",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.6.0",
     "react-router-dom": "^6.18.0",
     "sucrase": "^3.34.0"
   }

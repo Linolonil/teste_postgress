@@ -18,33 +18,16 @@ model Category {
 }
 
 model Item {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
   price       Float
   categoryId  Int
-  category    Category   @relation(fields: [categoryId], references: [id])
-  isVisible   Boolean    @default(true)
-  Order       Order?     @relation(fields: [orderId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
+  isVisible   Boolean  @default(true)
   orderId     Int?
-  CartItem    CartItem[]
-  User        User?      @relation(fields: [userId], references: [id])
+  User        User?    @relation(fields: [userId], references: [id])
   userId      Int?
-}
-
-model Order {
-  id         Int      @id @default(autoincrement())
-  items      Item[]
-  totalPrice Float
-  createdAt  DateTime @default(now())
-}
-
-model CartItem {
-  id        Int      @id @default(autoincrement())
-  itemId    Int
-  item      Item?    @relation(fields: [itemId], references: [id])
-  userId    Int
-  createdAt DateTime @default(now())
 }
 
 model User {
@@ -55,4 +38,20 @@ model User {
   token       String?
   items       Item[]
   menuVisible Boolean @default(false)
+  sales       Sale[]
+}
+
+model Sale {
+  id            Int      @id @default(autoincrement())
+  items         String
+  total         Float
+  paymentMethod String
+  delivery      Boolean?
+  address       String?
+  trip          Boolean
+  table         Boolean
+  note          String?
+  hour          DateTime @default(now())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
 }
